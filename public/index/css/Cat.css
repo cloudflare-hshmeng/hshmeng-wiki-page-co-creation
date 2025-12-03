@@ -1,0 +1,46 @@
+.cat {
+    position: fixed;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    transition: transform 0.6s ease;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.cat img {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.4s;
+}
+
+/* 左边初始在屏幕外 */
+.left { left: -64px; }
+/* 右边初始在屏幕外 */
+.right { right: -96px; }
+
+/* 左边探出 */
+.show-left { transform: translateX(64px); }
+/* 右边探出 */
+.show-right { transform: translateX(-64px); }
+
+/* 默认半露（只露一半） */
+.half-head img { transform: translateY(50%); }
+/* 点击后探全头 */
+.full-head img { transform: translateY(0%); }
+
+/* 左边时旋转90°（朝右） */
+.rotate-left img { transform: rotate(90deg) translateY(40%); }
+.rotate-left.full-head img { transform: rotate(90deg) translateY(0%); }
+
+/* 右边时旋转-90°（朝左） */
+.rotate-right img { transform: rotate(-90deg) translateY(40%); }
+.rotate-right.full-head img { transform: rotate(-90deg) translateY(0%); }
+.speech {
+    position: absolute;
+    bottom: auto;
+    white-space: nowrap;
+    display: none;
+    font-size: 14px;
+    font-weight: bold;
+}

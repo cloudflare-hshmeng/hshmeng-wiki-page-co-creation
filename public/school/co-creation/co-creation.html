@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>目录</title>
+	<style>
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --accent: #60a5fa;
+            --border: #1f2937;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: linear-gradient(180deg, #0b1220, #0f172a);
+            color: var(--text);
+        }
+        header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(6px);
+            z-index: 10;
+        }
+        .title {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .title h1 {
+            font-size: 22px;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+        .title small {
+            color: var(--muted);
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 170px 170px;
+            gap: 12px;
+        }
+        input[type="search"], select {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #0b1220;
+            color: var(--text);
+            outline: none;
+        }
+        main { padding: 24px 20px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+        .card {
+            border: 1px solid var(--border);
+            background: radial-gradient(1200px 300px at 0% 0%, rgba(96,165,250,0.12), transparent 40%),
+            radial-gradient(1200px 300px at 100% 0%, rgba(34,197,94,0.12), transparent 40%),
+            var(--card);
+            border-radius: 14px;
+            padding: 16px;
+            transition: border-color .2s ease, transform .12s ease;
+        }
+        .card:hover { border-color: #334155; transform: translateY(-1px); }
+        .topic {
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            color: #dbeafe;
+        }
+        .meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+        .intro {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.45;
+            margin-bottom: 12px;
+            min-height: 40px;
+        }
+        .link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px dashed #2b3648;
+            padding: 8px 10px;
+            border-radius: 10px;
+            transition: background-color .15s ease, border-color .15s ease;
+        }
+        .link:hover { background: #0b1220; border-color: #3b82f6; }
+        footer {
+            padding: 24px 20px;
+            color: var(--muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+        }
+        .empty {
+            padding: 30px;
+            text-align: center;
+            color: var(--muted);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            background: #0b1220;
+        }
+	</style>
+</head>
+<body>
+<header>
+	<div class="title">
+		<h1>目录</h1>
+	</div>
+	<div class="controls">
+		<input id="search" type="search" placeholder="搜索主题 / 作者 / 介绍…" />
+		<select id="sort">
+			<option value="topic-asc">按主题 A→Z</option>
+			<option value="topic-desc">按主题 Z→A</option>
+			<option value="author-asc">按作者 A→Z</option>
+			<option value="author-desc">按作者 Z→A</option>
+		</select>
+		<select id="filter">
+			<option value="">全部分类</option>
+			<option value="前端">前端</option>
+			<option value="后端">后端</option>
+			<option value="设计">设计</option>
+		</select>
+	</div>
+</header>
+
+<main>
+	<div id="grid" class="grid" aria-live="polite"></div>
+	<div id="empty" class="empty" style="display:none;">未找到匹配内容，请更改搜索或筛选条件。</div>
+</main>
+
+<footer>
+	轻量目录页示例：数据在前端数组中维护，可替换为接口数据或本地 JSON。
+</footer>
+
+<script>
+    // 示例数据：可替换为后端接口返回的数据
+    const items = [
+        {
+            topic: "HSHMENG示例页面",
+            author: "HSHMENG",
+            intro: "这是一个示例页面，不可以随意更改。",
+            link: "https://example.com/css-layout",
+            tag: "个人"
+        },
+        {
+            topic: "详细tag分类说明",
+            author: "HSHMENG",
+            intro: "请根据页面不同作用进行详细的tag分类。",
+            link: "HSHMENG/tags.html",
+            tag: "文献"
+        }
+    ];
+
+    const state = {
+        q: "",
+        sort: "topic-asc",
+        filter: ""
+    };
+
+    const elGrid = document.getElementById("grid");
+    const elEmpty = document.getElementById("empty");
+    const elSearch = document.getElementById("search");
+    const elSort = document.getElementById("sort");
+    const elFilter = document.getElementById("filter");
+
+    elSearch.addEventListener("input", (e) => {
+        state.q = e.target.value.trim().toLowerCase();
+        render();
+    });
+    elSort.addEventListener("change", (e) => {
+        state.sort = e.target.value;
+        render();
+    });
+    elFilter.addEventListener("change", (e) => {
+        state.filter = e.target.value;
+        render();
+    });
+
+    function render() {
+        // 1) 过滤
+        let data = items.filter(item => {
+            const passFilter = !state.filter || item.tag === state.filter;
+            if (!passFilter) return false;
+            if (!state.q) return true;
+            const hay = `${item.topic} ${item.author} ${item.intro}`.toLowerCase();
+            return hay.includes(state.q);
+        });
+
+        // 2) 排序
+        const [field, dir] = state.sort.split("-");
+        data.sort((a, b) => {
+            const av = (a[field] || "").toLowerCase();
+            const bv = (b[field] || "").toLowerCase();
+            if (av < bv) return dir === "asc" ? -1 : 1;
+            if (av > bv) return dir === "asc" ? 1 : -1;
+            return 0;
+        });
+
+        // 3) 渲染
+        elGrid.innerHTML = "";
+        if (data.length === 0) {
+            elEmpty.style.display = "block";
+            return;
+        } else {
+            elEmpty.style.display = "none";
+        }
+
+        const frag = document.createDocumentFragment();
+        data.forEach(item => {
+            const card = document.createElement("article");
+            card.className = "card";
+            card.innerHTML = `
+          <h2 class="topic">${escapeHtml(item.topic)}</h2>
+          <div class="meta">
+            <span>${escapeHtml(item.author)}</span>
+            <span class="dot"></span>
+            <span>${escapeHtml(item.tag)}</span>
+          </div>
+          <p class="intro">${escapeHtml(item.intro)}</p>
+          <a class="link" href="${encodeURI(item.link)}" target="_blank" rel="noopener noreferrer" aria-label="打开链接：${escapeHtml(item.topic)}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 14L21 3M21 3H14M21 3V10" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            打开链接
+          </a>
+        `;
+            frag.appendChild(card);
+        });
+        elGrid.appendChild(frag);
+    }
+
+    // 基础 XSS 处理
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    // 初始化
+    render();
+</script>
+</body>
+</html>

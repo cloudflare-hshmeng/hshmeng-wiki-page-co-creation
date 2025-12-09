@@ -12,6 +12,6 @@ document.addEventListener("keydown", function(event) {
 
     // 检查是否输入了完整关键字
     if (buffer === secret) {
-        window.location.href = "../../index.html";
+        window.location.href = "../../hshmeng/index.html";
     }
 });

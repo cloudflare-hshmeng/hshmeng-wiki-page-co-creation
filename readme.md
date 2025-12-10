@@ -17,3 +17,5 @@
 同时完全禁止任何违法违规内容的创作，一经发现，立即删除。
 
 具体的目录指引可在public/school/co-creation/co-creation.html中查看HSHMENG的创作提示
+
+**注意！！！所有文件大小不得超过10MB，否则不予通过**

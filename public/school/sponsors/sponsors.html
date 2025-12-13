@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>赞助HSHMENG</title>
+	<style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .donate-btn {
+            display: block;
+            text-align: center;
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .donate-btn:hover {
+            background: #0056b3;
+        }
+
+        .sponsor-list {
+            margin-top: 20px;
+        }
+        .sponsor-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .amount {
+            color: #28a745; /* 绿色金额 */
+            font-weight: bold;
+        }
+        .message {
+            white-space: pre-wrap; /* 支持换行显示 */
+            color: #555;
+            margin-top: 4px;
+        }
+        .date {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        /* 弹出的图片层 */
+        #imgOverlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        #imgOverlay img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 8px;
+        }
+	</style>
+	<link rel="stylesheet" href="../../index/css/ban_copy.css">
+</head>
+<body>
+<div class="container">
+	<h1>赞助HSHMENG</h1>
+	<p class="intro">您的支持是我们继续前进的最大动力！</p>
+	<p class="intro">赞助会在第二天的5点更新，同时赞助过程中，您可以进行留言或者选择匿名</p>
+	<div class="donate-btn" id="donateBtn">我要赞助</div>
+	<h2>赞助列表</h2>
+	<div class="sponsor-list" id="sponsorList">正在加载...</div>
+</div>
+
+<!-- 弹出图片层 -->
+<div id="imgOverlay">
+	<img src="./sponsors.png" alt="赞助二维码">
+</div>
+
+<script>
+    // 加载赞助列表
+    fetch('./sponsors.json')
+        .then(r => r.ok ? r.json() : Promise.reject("加载失败"))
+        .then(data => {
+            const list = document.getElementById('sponsorList');
+            if (!data.length) return list.innerHTML = '<p>暂时还没有赞助者~</p>';
+            list.innerHTML = data.map(item => `
+          <div class="sponsor-item">
+            <div><b>${item.name}</b> <span class="amount">¥${item.amount}</span></div>
+            ${item.message ? `<div class="message">${item.message}</div>` : ''}
+            <div class="date">${item.date}</div>
+          </div>
+        `).join('');
+        })
+        .catch(err => {
+            document.getElementById('sponsorList').innerHTML = `<p style="color:red;">加载失败：${err}</p>`;
+        });
+
+    // 弹出二维码
+    const overlay = document.getElementById('imgOverlay');
+    document.getElementById('donateBtn').onclick = () => overlay.style.display = 'flex';
+    overlay.onclick = () => overlay.style.display = 'none';
+</script>
+</body>
+</html>

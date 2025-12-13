@@ -1,0 +1,68 @@
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #4a90e2;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+    font-size: 28px;
+}
+main {
+    max-width: 800px;
+    margin: 10px auto 20px auto;
+    padding: 20px;
+}
+.link-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.link-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.link-card h2 {
+    margin: 0;
+    color: #4a90e2;
+    font-size: 20px;
+    cursor: pointer;
+}
+.details {
+    margin-top: 10px;
+    display: none;
+}
+a {
+    margin: 8px 0;
+    display: block;
+    text-decoration: none;
+}
+a:link {
+    color: #0b0ceb;
+    font-weight: 500;
+}
+a:visited {
+    color: #0c8918;
+}
+a:hover {
+    font-weight: 1000;
+    color: #f00056;
+}
+a:active {
+    color: #70f3ff;
+}
+footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    color: #888;
+}

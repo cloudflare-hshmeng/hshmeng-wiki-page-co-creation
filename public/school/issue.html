@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISSUE 反馈建议</title>
+    <style>
+        .link-card a {
+            text-decoration: none;
+            color: #4a90e2;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .link-card p {
+            margin-top: 8px;
+            color: #555;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #888;
+        }
+        form input, form textarea {
+            display: block;
+            width: 100%;              /* 不要100%，左右留点间距 */
+            margin: 10px auto;       /* 上下10px，左右自动居中 */
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;  /* 关键：包含padding+border */
+        }
+        form select, form button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        form button {
+            background: #4a90e2;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background: #357ab8;
+        }
+    </style>
+    <link rel="stylesheet" href="../index/css/ban_copy.css">
+    <link rel="stylesheet" href="css_js/other_all.css">
+    <script src="../index/js/num.js"></script>
+	<script src="../index/js/title.js"></script>
+</head>
+<body>
+<header>
+    <h1>ISSUE 反馈建议</h1>
+</header>
+<main>
+    <div class="link-card">
+        <h2>📝 提交问题 / 建议</h2>
+        <h3>注意，在提交之后您无法再次自己查看提交的内容或者修改提交的内容，也无法获得反馈</h3>
+        <form id="issue-form">
+            <input name="title" placeholder="标题" required />
+            <textarea name="body" placeholder="内容" rows="4" required></textarea>
+            <p>需要能够有响应的反馈？发送邮箱给<span style="display:inline"><a href="mailto:hshmeng@foxmail.com" style="display:inline; margin:0">hshmeng@foxmail.com</a></span>试试</p>
+            <input type="hidden" name="project" value="wiki" />
+            <button type="submit">提交 Issue</button>
+        </form>
+        <p id="issue-result" style="margin-top:10px;color:green;"></p>
+    </div>
+</main>
+<script>
+    // 提交 GitHub Issue
+    const WORKER_URL = "https://issues.hshmeng.dpdns.org"; // 替换成你的 Worker URL
+    const form = document.getElementById('issue-form');
+    const resultEl = document.getElementById('issue-result');
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        resultEl.style.color = "green";
+        resultEl.textContent = "提交中...";
+
+        const fd = new FormData(form);
+        // ⚠️ 删除 labels，不再传递
+        const payload = {
+            project: fd.get('project'),
+            title: fd.get('title'),
+            body: fd.get('body')
+        };
+
+        try {
+            const res = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                resultEl.textContent = `提交成功！`;
+            } else {
+                resultEl.style.color = "red";
+                resultEl.textContent = `提交失败: ${JSON.stringify(data)}`;
+            }
+        } catch (err) {
+            resultEl.style.color = "red";
+            resultEl.textContent = `提交失败: ${err.message}`;
+        }
+    });
+</script>
+
+</body>
+</html>

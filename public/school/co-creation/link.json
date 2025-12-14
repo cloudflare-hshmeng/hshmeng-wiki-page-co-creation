@@ -1,0 +1,16 @@
+[
+    {
+        "topic": "如何生成自己的链接？",
+        "author": "HSHMENG",
+        "intro": "本页面将教你如何编辑link.json，从而在目录页面中新增、修改或删除条目。",
+        "link": "HSHMENG/link.html",
+        "tag": "官方教学"
+    },
+    {
+        "topic": "详细tag分类说明",
+        "author": "HSHMENG",
+        "intro": "本页面将帮助你理解目录系统中的tag是如何正确添加、修改和管理分类。",
+        "link": "HSHMENG/tags.html",
+        "tag": "官方教学"
+    }
+]

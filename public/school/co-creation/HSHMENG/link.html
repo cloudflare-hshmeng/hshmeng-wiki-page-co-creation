@@ -1,29 +1,140 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns="http://www.w3.org/1999/html">
+<html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<title>如何生成自己的链接</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>如何修改 link.json</title>
+	<style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.7;
+        }
+        h1, h2 {
+            color: #93c5fd;
+        }
+        code {
+            background: #1e293b;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        pre {
+            background: #1e293b;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid #334155;
+        }
+        .box {
+            background: #111827;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            margin-bottom: 24px;
+        }
+        a {
+            color: #60a5fa;
+        }
+	</style>
 </head>
 <body>
+
+<h1>如何修改 link.json</h1>
+
+<div class="box">
+	<p><strong>本页面将教你如何编辑 <code>link.json</code>，从而在目录页面中新增、修改或删除条目。</strong></p>
+</div>
+
+<h2>1. link.json 在哪里？</h2>
+<p>
+	它通放在 <code>co-creation.html</code> 同级的目录中，例如：
+</p>
+
 <pre>
-在co-creation.html页面的js中
-const items = [
-	{
-		topic: "如何生成自己的链接？",
-		author: "HSHMENG",
-		intro: "教学",
-		link: "HSHMENG/link.html",
-		tag: "官方"
-	},
-	{
-		topic: "详细tag分类说明",
-		author: "HSHMENG",
-		intro: "请根据页面不同作用进行详细的tag分类。",
-		link: "HSHMENG/tags.html",
-		tag: "官方"
-	}
-];
-自行增加
+/co-creation.html
+/link.json
 </pre>
+
+<h2>2. link.json 的结构是什么？</h2>
+<p>它是一个由多个对象组成的数组，每个对象代表目录中的一条内容：</p>
+
+<pre>{
+    "topic": "如何生成自己的链接？",
+    "author": "HSHMENG",
+    "intro": "教学",
+    "link": "HSHMENG/link.html",
+    "tag": "官方教学"
+}</pre>
+
+<p>每个字段的含义如下：</p>
+
+<ul>
+	<li><code>topic</code>：标题（显示在卡片顶部）</li>
+	<li><code>author</code>：作者名称</li>
+	<li><code>intro</code>：简介（卡片中的描述）</li>
+	<li><code>link</code>：点击后跳转的链接</li>
+	<li><code>tag</code>：分类标签（用于筛选）</li>
+</ul>
+
+<h2>3. 如何新增一条内容？</h2>
+<p>只需在数组末尾添加一个新的对象，例如：</p>
+
+<pre>[
+    {
+        "topic": "如何生成自己的链接？",
+        "author": "HSHMENG",
+        "intro": "教学",
+        "link": "HSHMENG/link.html",
+        "tag": "官方教学"
+    },
+    {
+        "topic": "这是新增的内容",
+        "author": "你的名字",
+        "intro": "这里写简介",
+        "link": "your-folder/your-page.html",
+        "tag": "前端"
+    }
+]</pre>
+
+<p><strong>注意：</strong> 每个对象之间要用逗号 <code>,</code> 分隔。</p>
+
+<h2>4. 如何修改一条内容？</h2>
+<p>找到对应的对象，直接修改字段即可。例如修改标题：</p>
+
+<pre>
+"topic": "新的标题"
+</pre>
+
+<h2>5. 如何删除一条内容？</h2>
+<p>删除对应的对象即可，例如删除第二条：</p>
+
+<pre>[
+    {
+        "topic": "如何生成自己的链接？",
+        "author": "HSHMENG",
+        "intro": "教学",
+        "link": "HSHMENG/link.html",
+        "tag": "官方教学"
+    }
+]</pre>
+
+<h2>6. 保存后刷新页面即可生效</h2>
+<p>
+	因为目录页面使用 <code>fetch('./link.json')</code> 动态加载数据，
+	所以只要保存 JSON 文件并刷新浏览器，就能看到最新内容。
+</p>
+
+<h2>7. JSON 编辑常见错误</h2>
+<ul>
+	<li>漏写逗号 <code>,</code></li>
+	<li>字符串没有用双引号包裹</li>
+	<li>最后一个对象后面多写了逗号</li>
+	<li>JSON 不是 JS，不能写注释</li>
+</ul>
+
 </body>
 </html>

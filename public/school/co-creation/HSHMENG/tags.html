@@ -2,85 +2,84 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<title>简单表格页面</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>tag 分类说明</title>
 	<style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.7;
         }
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 0 auto;
+        h1, h2 {
+            color: #93c5fd;
         }
-        th, td {
-            border: 1px solid #333;
-            padding: 8px 12px;
-            text-align: left;
+        code {
+            background: #1e293b;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-size: 14px;
         }
-        th {
-            background-color: #f2f2f2;
+        pre {
+            background: #1e293b;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid #334155;
         }
-        caption {
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 18px;
+        .box {
+            background: #111827;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            margin-bottom: 24px;
+        }
+        ul li {
+            margin-bottom: 6px;
+        }
+        a {
+            color: #60a5fa;
         }
 	</style>
 </head>
 <body>
-<h1>HTML 标签分类</h1>
-<h4>如有更好分类方法可以请求合并或者发送issue</h4>
-<table>
-	<caption>目录信息表</caption>
-	<thead>
-	<tr>
-		<th>分类</th>
-		<th>说明</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td>个人</td>
-		<td>用于展示个人内容，如博客、作品集、简历、个人主页等。</td>
-	</tr>
-	<tr>
-		<td>文献</td>
-		<td>用于分享学习资料、研究成果、知识文档或参考书目。</td>
-	</tr>
-	<tr>
-		<td>媒体</td>
-		<td>用于呈现图片、音频、视频等多媒体资源，提升页面表现力。</td>
-	</tr>
-	<tr>
-		<td>游戏</td>
-		<td>用于展示或嵌入互动游戏内容，包括网页小游戏或相关介绍。</td>
-	</tr>
-	<tr>
-		<td>新闻</td>
-		<td>用于发布资讯、公告或新闻报道，常见于门户网站或信息平台。</td>
-	</tr>
-	<tr>
-		<td>教育</td>
-		<td>用于教学资源、课程介绍、在线学习平台等教育相关内容。</td>
-	</tr>
-	<tr>
-		<td>商业</td>
-		<td>用于展示企业信息、产品服务、电子商务页面或品牌宣传。</td>
-	</tr>
-	<tr>
-		<td>社交</td>
-		<td>用于社区交流、论坛、留言板或社交网络相关功能。</td>
-	</tr>
-	<tr>
-		<td>技术</td>
-		<td>用于分享编程、开发、工具使用等技术类文章或文档。</td>
-	</tr>
-	<tr>
-		<td>娱乐</td>
-		<td>用于音乐、影视、综艺、兴趣爱好等娱乐相关内容。</td>
-	</tr>
-	</tbody>
-</table>
+
+<h1>tag 分类说明</h1>
+
+<div class="box">
+	<p><strong>本页面将帮助你理解目录系统中的 <code>tag</code> 是如何正确添加、修改和管理分类。</strong></p>
+</div>
+
+<h2>1. 什么是 tag？</h2>
+<p>
+	<code>tag</code> 是目录系统中的“分类标签”，用于在主页面中进行筛选。
+	每一条内容都可以拥有一个 tag，例如：
+</p>
+
+<pre>
+"tag": "官方教学"
+</pre>
+
+<p>在目录页面中，用户可以通过右侧的筛选器选择某个 tag，只显示对应分类的内容。</p>
+
+<h2>2. 当前可用的 tag 列表</h2>
+<p>以下是系统中常用的 tag（你可以根据需要自由扩展）：</p>
+
+<ul>
+	<li><strong>官方教学</strong>：官方发布的教程、说明文档</li>
+	<li><strong>个人</strong>：个人发布的属于自己的页面（广义）</li>
+	<li><strong>娱乐</strong>：具有娱乐性质的页面，比如小游戏，生活等</li>
+	<li><strong>工具</strong>：具有帮助功能的页面，比如网址导航、实用工具等</li>
+	<li><strong>学习</strong>：与学习相关的页面，比如学习资料、课程等</li>
+	<li><strong>资源</strong>：提供各种资源下载或浏览的页面，比如图片、文档等</li>
+	<li><strong>其他</strong>：无法归类到以上类别的页面（可以尝试发送issue进行建议）</li>
+</ul>
+
+<div class="box">
+	<p><strong>注意：</strong> tag 的名称不能由你决定，需要根据上面的举例进行分类。</p>
+</div>
+
 </body>
 </html>

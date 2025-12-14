@@ -139,9 +139,7 @@
 		</select>
 		<select id="filter">
 			<option value="">全部分类</option>
-			<option value="前端">前端</option>
-			<option value="后端">后端</option>
-			<option value="设计">设计</option>
+			<option value="官方教学">官方教学</option>
 		</select>
 	</div>
 </header>
@@ -153,22 +151,15 @@
 
 <script>
     // 示例数据：可替换为后端接口返回的数据
-    const items = [
-        {
-            topic: "如何生成自己的链接？",
-            author: "HSHMENG",
-            intro: "教学",
-            link: "HSHMENG/link.html",
-            tag: "官方教学"
-        },
-        {
-            topic: "详细tag分类说明",
-            author: "HSHMENG",
-            intro: "请根据页面不同作用进行详细的tag分类。",
-            link: "HSHMENG/tags.html",
-            tag: "官方教学"
-        }
-    ];
+    let items = [];
+
+    fetch('./link.json')
+        .then(res => res.json())
+        .then(data => {
+            items = data;
+            render();
+        })
+        .catch(err => console.error(err));
 
     const state = {
         q: "",

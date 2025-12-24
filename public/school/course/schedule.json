@@ -1,0 +1,49 @@
+{
+    "Monday": [
+        { "course": "思政大课堂", "teacher": "", "location": "", "start": "08:00", "end": "08:40" },
+        { "course": "体育", "teacher": "郑高南", "location": "", "start": "08:50", "end": "09:30" },
+        { "course": "数学", "teacher": "胡耀征", "location": "", "start": "09:55", "end": "10:35" },
+        { "course": "操作系统", "teacher": "刘金玉", "location": "机房5303", "start": "10:45", "end": "11:25" },
+        { "course": "网络设备管理", "teacher": "余劲松", "location": "机房5303", "start": "13:10", "end": "13:50" },
+        { "course": "网络设备管理", "teacher": "余劲松", "location": "机房5303", "start": "14:00", "end": "14:40" },
+        { "course": "网络安全实训", "teacher": "刘国强", "location": "机房5303", "start": "14:55", "end": "15:35" },
+        { "course": "网络安全实训", "teacher": "刘国强", "location": "机房5303", "start": "15:45", "end": "16:25" }
+    ],
+    "Tuesday": [
+        { "course": "英语", "teacher": "周幼娜", "location": "", "start": "08:00", "end": "08:40" },
+        { "course": "英语", "teacher": "周幼娜", "location": "", "start": "08:50", "end": "09:30" },
+        { "course": "入侵检测与防护", "teacher": "刘金玉", "location": "机房5303", "start": "09:55", "end": "10:35" },
+        { "course": "入侵检测与防护", "teacher": "刘金玉", "location": "机房5303", "start": "10:45", "end": "11:25" },
+        { "course": "数据库安全", "teacher": "陈天翔", "location": "机房5306", "start": "13:10", "end": "13:50" },
+        { "course": "数学", "teacher": "胡耀征", "location": "", "start": "14:00", "end": "14:40" },
+        { "course": "网络设备管理", "teacher": "余劲松", "location": "机房5403", "start": "14:55", "end": "15:35" },
+        { "course": "语文", "teacher": "郑露", "location": "", "start": "15:45", "end": "16:25" }
+    ],
+    "Wednesday": [
+        { "course": "网络安全实训", "teacher": "刘国强", "location": "机房5303", "start": "08:00", "end": "08:40" },
+        { "course": "网络安全实训", "teacher": "刘国强", "location": "机房5303", "start": "08:50", "end": "09:30" },
+        { "course": "数学", "teacher": "胡耀征", "location": "", "start": "09:55", "end": "10:35" },
+        { "course": "入侵检测与防护", "teacher": "刘金玉", "location": "机房5303", "start": "10:45", "end": "11:25" },
+        { "course": "英语", "teacher": "周幼娜", "location": "", "start": "13:10", "end": "13:50" },
+        { "course": "语文", "teacher": "郑露", "location": "", "start": "14:00", "end": "14:40" },
+        { "course": "操作系统", "teacher": "刘金玉", "location": "机房5303", "start": "14:55", "end": "15:35" },
+        { "course": "操作系统", "teacher": "刘金玉", "location": "机房5303", "start": "15:45", "end": "16:25" }
+    ],
+    "Thursday": [
+        { "course": "数据库安全", "teacher": "陈天翔", "location": "机房5303", "start": "08:00", "end": "08:40" },
+        { "course": "数据库安全", "teacher": "陈天翔", "location": "机房5303", "start": "08:50", "end": "09:30" },
+        { "course": "英语", "teacher": "周幼娜", "location": "", "start": "09:55", "end": "10:35" },
+        { "course": "语文", "teacher": "郑露", "location": "", "start": "10:45", "end": "11:25" },
+        { "course": "选修课", "teacher": "", "location": "", "start": "13:10", "end": "14:40" },
+        { "course": "体育", "teacher": "郑高南", "location": "", "start": "14:55", "end": "15:35" },
+        { "course": "数学", "teacher": "胡耀征", "location": "", "start": "15:45", "end": "16:25" }
+    ],
+    "Friday": [
+        { "course": "网络安全产品配置", "teacher": "林爽爽", "location": "机房5303", "start": "08:00", "end": "08:40" },
+        { "course": "网络安全产品配置", "teacher": "林爽爽", "location": "机房5303", "start": "08:50", "end": "09:30" },
+        { "course": "网络安全产品配置", "teacher": "林爽爽", "location": "机房5303", "start": "09:55", "end": "10:35" },
+        { "course": "网络安全产品配置", "teacher": "林爽爽", "location": "机房5303", "start": "10:45", "end": "11:25" },
+        { "course": "语文", "teacher": "郑露", "location": "", "start": "13:10", "end": "13:50" },
+        { "course": "数学", "teacher": "胡耀征", "location": "", "start": "14:00", "end": "14:40" }
+    ]
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>7天时间表</title>
+	<style>
+        body { font-family: sans-serif; margin: 0; padding: 0; }
+        body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+        .schedule-wrapper { position: relative; overflow: auto; border: 1px solid #ccc; margin: 20px; max-height: 90vh; background: #fff; }
+        table { border-collapse: collapse; min-width: 1000px; }
+        th, td { border: 1px solid #ddd; text-align: center; background: #fff; }
+        th { background: #f8f8f8; z-index: 100; }
+        thead tr:first-child th { position: sticky; top: 0; }
+        thead tr:nth-child(2) th { position: sticky; top: 30px; }
+        .hour-col { width: 60px; background: #fafafa; position: sticky; left: 0; z-index: 101; }
+        table tbody tr { height: 120px; }
+        .day-col { width: 120px; position: relative; }
+        .past-day { background: #f0f0f0; }
+        .past-hour { background: #dce6f9; }
+        .now-fill { height: 100%; background: linear-gradient(90deg, #a7c4ff, transparent); }
+        .overlay { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+        .overlay-col { position: absolute; top: 0; }
+        .course-block { position: absolute; left: 6px; right: 6px; border-radius: 6px; background: #eef4ff; box-shadow: 0 1px 2px rgba(0,0,0,0.08); overflow: hidden; }
+        .course-progress { position: absolute; left: 0; top: 0; width: 100%; background: #4f78ff; }
+        .course-time { position: absolute; top: 4px; left: 6px; font-size: 12px; color: #1f2937; }
+        .course-name { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 600; color: #111827; white-space: nowrap; }
+        .course-note { position: absolute; bottom: 4px; left: 6px; font-size: 12px; color: #374151; white-space: nowrap; }
+        .course-location {position: absolute;bottom: 4px;right: 6px;font-size: 12px;color: #374151;white-space: nowrap;}
+        .course-name {position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);font-size: 13px;font-weight: 600;color: #111827;text-align: center;}
+	</style>
+</head>
+<body>
+<div class="schedule-wrapper">
+	<table id="schedule">
+		<thead>
+		<tr>
+			<th class="hour-col">日期</th>
+		</tr>
+		<tr>
+			<th class="hour-col">星期</th>
+		</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<div id="overlay" class="overlay"></div>
+</div>
+
+<script>
+    const pad2 = n => String(n).padStart(2,'0');
+    const weekdayCN = ['日','一','二','三','四','五','六'];
+    const now = new Date();
+    const days = [];
+    for(let offset=-3; offset<=3; offset++){
+        const d = new Date(now);
+        d.setDate(d.getDate()+offset);
+        days.push({
+            date: d,
+            key: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`,
+            weekday: weekdayCN[d.getDay()],
+            isToday: offset===0,
+            isPastDay: offset<0
+        });
+    }
+
+    const table = document.getElementById('schedule');
+    const dateRow = table.tHead.rows[0];
+    const weekRow = table.tHead.rows[1];
+    days.forEach(d=>{
+        const thDate = document.createElement('th');
+        thDate.className = 'day-col';
+        thDate.textContent = d.key;
+        dateRow.appendChild(thDate);
+
+        const thWeek = document.createElement('th');
+        thWeek.className = 'day-col';
+        thWeek.textContent = '星期'+d.weekday;
+        weekRow.appendChild(thWeek);
+    });
+
+    const tbody = table.tBodies[0];
+    for(let h=0; h<24; h++){
+        const tr = document.createElement('tr');
+        const tdHour = document.createElement('td');
+        tdHour.className = 'hour-col';
+        tdHour.textContent = pad2(h)+':00';
+        tr.appendChild(tdHour);
+
+        days.forEach(d=>{
+            const td = document.createElement('td');
+            td.className = 'day-col';
+            if(d.isPastDay){
+                td.classList.add('past-day');
+            }else if(d.isToday){
+                if(h<now.getHours()){
+                    td.classList.add('past-hour');
+                }else if(h===now.getHours()){
+                    const fill = document.createElement('div');
+                    fill.className = 'now-fill';
+                    fill.style.width = (now.getMinutes()/60*100)+'%';
+                    td.appendChild(fill);
+                }
+            }
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    }
+
+    function renderCourses(data){
+        const overlay = document.getElementById('overlay');
+        overlay.innerHTML = '';
+        const wrapper = document.querySelector('.schedule-wrapper');
+        const rectWrapper = wrapper.getBoundingClientRect();
+        const tbodyRect = tbody.getBoundingClientRect();
+        const dayHeaders = dateRow.querySelectorAll('.day-col');
+        dayHeaders.forEach((th)=>{
+            const r = th.getBoundingClientRect();
+            const col = document.createElement('div');
+            col.className = 'overlay-col';
+            col.style.left = (r.left - rectWrapper.left + wrapper.scrollLeft) + 'px';
+            col.style.width = r.width + 'px';
+            col.style.height = (tbody.scrollHeight) + 'px';
+            col.style.top = (tbodyRect.top - rectWrapper.top + wrapper.scrollTop) + 'px';
+            overlay.appendChild(col);
+        });
+
+        const rowHeight = tbody.querySelector('tr').offsetHeight;
+        const pxPerMinute = rowHeight / 60;
+        const nowDate = new Date();
+        const nowMinutes = nowDate.getHours()*60 + nowDate.getMinutes();
+        const daysMap = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+        daysMap.forEach((dayKey, dayIndex)=>{
+            const col = overlay.children[dayIndex];
+            const items = data[dayKey] || [];
+            items.forEach(course=>{
+                const [sh, sm] = course.start.split(':').map(Number);
+                const [eh, em] = course.end.split(':').map(Number);
+                const startMinutes = sh*60 + sm;
+                const endMinutes = eh*60 + em;
+                const duration = endMinutes - startMinutes;
+                const fullHeight = duration * pxPerMinute;
+                const top = startMinutes * pxPerMinute;
+
+                let progress = 0;
+                if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) {
+                    progress = (nowMinutes - startMinutes) / duration;
+                } else if (nowMinutes > endMinutes) {
+                    progress = 1;
+                } else {
+                    progress = 0;
+                }
+
+                const block = document.createElement('div');
+                block.className = 'course-block';
+                block.style.top = top + 'px';
+                block.style.height = fullHeight + 'px';
+
+                const fill = document.createElement('div');
+                fill.className = 'course-progress';
+                fill.style.height = (progress * 100) + '%';
+
+                const time = document.createElement('div');
+                time.className = 'course-time';
+                time.textContent = `${course.start}-${course.end}`;
+
+                const name = document.createElement('div');
+                name.className = 'course-name';
+                name.innerHTML = `<strong>${course.course}</strong><br>${course.teacher}`;
+
+                const note = document.createElement('div');
+                note.className = 'course-note';
+                note.textContent = `${course.note || ''}`;
+
+                const location = document.createElement('div');
+                location.className = 'course-location';
+                location.textContent = `${course.location || ''}`;
+
+                block.appendChild(fill);
+                block.appendChild(time);
+                block.appendChild(name);
+                block.appendChild(note);
+                block.appendChild(location);
+                col.appendChild(block);
+            });
+        });
+    }
+
+    function loadAndRender(){
+        fetch('schedule.json')
+            .then(r=>r.json())
+            .then(data=>{
+                renderCourses(data);
+            });
+    }
+
+    loadAndRender();
+
+    const ro = new ResizeObserver(()=>loadAndRender());
+    ro.observe(document.querySelector('.schedule-wrapper'));
+    document.querySelector('.schedule-wrapper').addEventListener('scroll', loadAndRender, { passive: true });
+</script>
+</body>
+</html>

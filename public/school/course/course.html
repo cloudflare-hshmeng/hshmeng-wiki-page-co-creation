@@ -109,9 +109,12 @@
     function renderCourses(data){
         const overlay = document.getElementById('overlay');
         overlay.innerHTML = '';
+
         const wrapper = document.querySelector('.schedule-wrapper');
         const rectWrapper = wrapper.getBoundingClientRect();
         const tbodyRect = tbody.getBoundingClientRect();
+
+        // 根据表头真实顺序创建 overlay 列
         const dayHeaders = dateRow.querySelectorAll('.day-col');
         dayHeaders.forEach((th)=>{
             const r = th.getBoundingClientRect();
@@ -119,46 +122,64 @@
             col.className = 'overlay-col';
             col.style.left = (r.left - rectWrapper.left + wrapper.scrollLeft) + 'px';
             col.style.width = r.width + 'px';
-            col.style.height = (tbody.scrollHeight) + 'px';
+            col.style.height = tbody.scrollHeight + 'px';
             col.style.top = (tbodyRect.top - rectWrapper.top + wrapper.scrollTop) + 'px';
             overlay.appendChild(col);
         });
 
         const rowHeight = tbody.querySelector('tr').offsetHeight;
         const pxPerMinute = rowHeight / 60;
-        const nowDate = new Date();
-        const nowMinutes = nowDate.getHours()*60 + nowDate.getMinutes();
-        const daysMap = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
-        daysMap.forEach((dayKey, dayIndex)=>{
-            const col = overlay.children[dayIndex];
+        const nowDate = new Date();
+        const nowMinutes = nowDate.getHours() * 60 + nowDate.getMinutes();
+
+        // 英文星期键，匹配 schedule.json
+        const weekdayEN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+        // 使用你已有的 days 数组来确定列和今天/过去
+        days.forEach((dayMeta, colIndex) => {
+            const col = overlay.children[colIndex];
+            const dayKey = weekdayEN[dayMeta.date.getDay()];
             const items = data[dayKey] || [];
-            items.forEach(course=>{
+
+            items.forEach(course => {
                 const [sh, sm] = course.start.split(':').map(Number);
                 const [eh, em] = course.end.split(':').map(Number);
-                const startMinutes = sh*60 + sm;
-                const endMinutes = eh*60 + em;
+                const startMinutes = sh * 60 + sm;
+                const endMinutes = eh * 60 + em;
                 const duration = endMinutes - startMinutes;
+
                 const fullHeight = duration * pxPerMinute;
                 const top = startMinutes * pxPerMinute;
-
-                let progress = 0;
-                if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) {
-                    progress = (nowMinutes - startMinutes) / duration;
-                } else if (nowMinutes > endMinutes) {
-                    progress = 1;
-                } else {
-                    progress = 0;
-                }
 
                 const block = document.createElement('div');
                 block.className = 'course-block';
                 block.style.top = top + 'px';
                 block.style.height = fullHeight + 'px';
 
-                const fill = document.createElement('div');
-                fill.className = 'course-progress';
-                fill.style.height = (progress * 100) + '%';
+                if (dayMeta.isToday || dayMeta.isPastDay) {
+                    let progress = 0;
+
+                    if (dayMeta.isPastDay) {
+                        progress = 1; // 过去的日子填满
+                    } else {
+                        // 今天的列
+                        if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) {
+                            progress = (nowMinutes - startMinutes) / duration;
+                        } else if (nowMinutes > endMinutes) {
+                            progress = 1;
+                        } else {
+                            progress = 0;
+                        }
+                    }
+
+                    const fill = document.createElement('div');
+                    fill.className = 'course-progress ' + (dayMeta.isPastDay ? 'past' : 'today');
+                    fill.style.height = (progress * 100) + '%';
+                    fill.style.background = dayMeta.isPastDay ? '#6a6a6a' : '#4f78ff';
+
+                    block.appendChild(fill);
+                }
 
                 const time = document.createElement('div');
                 time.className = 'course-time';
@@ -176,7 +197,6 @@
                 location.className = 'course-location';
                 location.textContent = `${course.location || ''}`;
 
-                block.appendChild(fill);
                 block.appendChild(time);
                 block.appendChild(name);
                 block.appendChild(note);

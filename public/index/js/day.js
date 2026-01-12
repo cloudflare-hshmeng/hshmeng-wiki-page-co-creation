@@ -37,21 +37,15 @@ console.log(today.toLocaleDateString());
 
 // 日期对应符号和颜色的映射表
 const dateSymbols = {
-    "8-29": { char: "❤️", color: "red" },// 七夕
-    "9-6": { char: "👻", color: "white" },// 中元
-    "9-10": { char: "🎓", color: "blue" },// 教师
-    "9-18": { char: "勿忘“九·一八” 吾辈当自强！", color: "red" },// 918事变
-    "10-1": { char: "🇨🇳", color: "red" },// 国庆
-    "10-29": { char: "🍂", color: "gold" },// 重阳
-    "11-27": { char: "🍁", color: "gold" },// 感恩
     "1-1": { char: "🎉", color: "red" },// 元旦
-    "1-26": { char: "🍲", color: "brown" },// 腊八
+    // "1-26": { char: "🍲", color: "brown" },// 腊八
     "2-14": { char: "💘", color: "red" },// 情人节
     "2-16": { char: "🎇", color: "red" },// 除夕
     "2-17": { char: "🎆", color: "red" },// 春节
     "3-3": { char: "🏮", color: "orange" },// 元宵
     "3-8": { char: "🌸", color: "pink" },// 妇女节
     "4-1": { char: "🤡", color: "yellow" },// 愚人节
+    "4-4": { char: "🏃", color: "yellow" },// 青年节
     "4-19": { char: "🌊", color: "cyan" },// 上巳节
     "5-1": { char: "💼", color: "blue" },// 劳动节
     "5-10": { char: "💐", color: "pink" },//母亲节
@@ -59,7 +53,13 @@ const dateSymbols = {
     "6-19": { char: "🐉", color: "green" },// 端午节
     "6-21": { char: "👔", color: "blue" },// 父亲节
     "7-1": { char: "🎉", color: "red" },// 建党节
-    "8-1": { char: "🎖️", color: "gold" }// 建军节
+    "8-1": { char: "🎖️", color: "gold" },// 建军节
+    "9-10": { char: "🎓", color: "blue" },// 教师
+    "9-18": { char: "勿忘“九·一八” 吾辈当自强！", color: "red" },// 918事变
+    "10-1": { char: "🇨🇳", color: "red" },// 国庆
+    "11-26": { char: "🦃", color: "brown" },// 感恩节
+    "12-24": { char: "🎄", color: "green" },// 平安夜
+    "12-25": { char: "🎅", color: "red" } // 圣诞节
 };
 
 const monthDayKey = `${today.getMonth() + 1}-${today.getDate()}`; // 月份从0开始，所以 +1

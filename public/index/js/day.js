@@ -38,7 +38,7 @@ console.log(today.toLocaleDateString());
 // 日期对应符号和颜色的映射表
 const dateSymbols = {
     "1-1": { char: "🎉", color: "red" },// 元旦
-    // "1-26": { char: "🍲", color: "brown" },// 腊八
+    // "1-26": { char: "🍲", sensitive-color: "brown" },// 腊八
     "2-14": { char: "💘", color: "red" },// 情人节
     "2-16": { char: "🎇", color: "red" },// 除夕
     "2-17": { char: "🎆", color: "red" },// 春节

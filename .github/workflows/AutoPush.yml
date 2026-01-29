@@ -1,0 +1,44 @@
+name: Sync Repo B to Repo A
+
+on:
+  pull_request_target:
+    types: [closed]
+
+jobs:
+  sync:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo B (base)
+        uses: actions/checkout@v3
+
+      - name: Checkout Repo A
+        uses: actions/checkout@v3
+        with:
+          repository: cloudflare-hshmeng/hshmeng-wiki-page
+          token: ${{ secrets.REPO_TOKEN }}
+          path: repoA
+          ref: master
+
+      - name: Sync co-creation to Repo A (include all files)
+        run: |
+          # 确保目标目录存在
+          mkdir -p repoA/public/school/co-creation
+
+          # 同步 co-creation 下的所有内容到 repoA 的目标目录
+          # 注意：源是 ./co-creation/，末尾斜杠表示复制目录内的内容
+          # 为安全起见，排除 repoA 本身，避免把 repoA/.git 误复制
+          rsync -av --delete \
+            --exclude='repoA' \
+            ./co-creation/ repoA/public/school/co-creation/
+
+      - name: Commit & Push to Repo A only
+        run: |
+          cd repoA
+          git status --porcelain
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          # 仅添加目标目录，避免影响父仓库
+          git add public/school/co-creation
+          git commit -m "Auto sync co-creation from Repo B after PR merge" || echo "No changes to commit"
+          git push

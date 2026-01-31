@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Repo A
         uses: actions/checkout@v3
         with:
-          repository: cloudflare-hshmeng/hshmeng-wiki-page
+          repository: cloudflare-hshmeng/hshmeng-page
           token: ${{ secrets.REPO_TOKEN }}
           path: repoA
           ref: master

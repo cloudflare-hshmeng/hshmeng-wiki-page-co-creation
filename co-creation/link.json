@@ -12,5 +12,12 @@
         "intro": "本页面将帮助你理解目录系统中的tag是如何正确添加、修改和管理分类。",
         "link": "HSHMENG/tags.html",
         "tag": "官方教学"
+    },
+    {
+        "topic": "OS6个人页面",
+        "author": "OS6",
+        "intro": "OS6个人页面",
+        "link": "OS6-main/index.html",
+        "tag": "个人"
     }
 ]

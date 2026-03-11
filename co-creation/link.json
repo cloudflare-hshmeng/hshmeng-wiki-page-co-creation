@@ -14,6 +14,13 @@
         "tag": "官方教学"
     },
     {
+        "topic": "网页挂载帮助",
+        "author": "HSHMENG",
+        "intro": "本页面将帮助你挂载网页，购买服务器，理解后端分类等相关内容。",
+        "link": "HSHMENG/help.html",
+        "tag": "官方教学"
+    },
+    {
         "topic": "OS6个人页面",
         "author": "OS6",
         "intro": "OS6个人页面",

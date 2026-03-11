@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>网页挂载帮助</title>
+	<style>
+        body {
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.7;
+        }
+        h1, h2 {
+            color: #93c5fd;
+        }
+        code {
+            background: #1e293b;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        pre {
+            background: #1e293b;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid #334155;
+        }
+        .box {
+            background: #111827;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            margin-bottom: 24px;
+        }
+        a {
+            color: #60a5fa;
+        }
+        body.light {
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        .light h1, .light h2 {
+            color: #2563eb;
+        }
+
+        .light code {
+            background: #f3f4f6;
+            color: #111827;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .light pre {
+            background: #f3f4f6;
+            color: #111827;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid #d1d5db;
+        }
+
+        .light .box {
+            background: #ffffff;
+            color: #374151;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            margin-bottom: 24px;
+        }
+
+        .light a {
+            color: #2563eb;
+        }
+	</style>
+</head>
+<body>
+
+<h1>一、网站的类型</h1>
+
+<div class="box">
+	<p><strong>首先就是，我们要知道，网站主要区分为“静态网站”，“动态网站”</strong></p>
+	<p>它们的区别主要在于内容是否会随着用户交互或后台逻辑而变化</p>
+</div>
+
+<h2>1. 静态网站</h2>
+<p>页面内容是固定的，直接由 HTML、CSS、JavaScript 等文件组成。</p>
+
+<h2>2. 动态网站</h2>
+<p>页面内容由服务器端程序（如 PHP、Python Flask、Node.js 等）根据逻辑动态生成。</p>
+
+<h2>3. HSHMENG服务器支持挂载什么类型的网站 / 如果你实在想要后端怎么办</h2>
+<p>首先需要说明的，HSHMENG的服务器是支持挂载后端，但是HSHMENG不允许大家挂载后端</p>
+<p>原因很简单，你的后端如果携带恶意代码，是可以直接入侵的（PS：其实可以直接开一个新的服务器给你，但是这都是钱啊）</p>
+<p>同时，你的后端包含了所有的交互逻辑，HSHMENG是很容易就能找到漏洞或者去暗箱操作的，后端还可能包含服务器的账户密码等等内容，所以直接不允许</p>
+
+<p>首先你还需要知道一个概念，后端类型</p>
+<p>后端可以按照 运行方式 和 架构模式 来分类，不只是语言和框架。</p>
+<pre>
+传统后端：运行在固定服务器上（物理机或虚拟机），需要自己维护环境。
+无服务器后端：不需要自己维护服务器，代码按需执行，自动扩展。
+边缘计算后端：代码运行在全球分布的 CDN 节点，离用户更近。
+微服务架构后端：系统拆分为多个小服务，每个服务独立运行，通常通过 API 通信。
+后端即服务：直接使用第三方提供的后端功能，不需要自己写完整后端。
+特殊类型后端：GraphQL 后端、Headless CMS、实时后端
+</pre>
+<p>HSHMENG直接坦诚的告诉大家，HSHMENG的后端是 无服务器后端+边缘计算后端</p>
+<p>团员们可能知道，之前HSHMENG有过一个评议系统，那个呢是 传统后端Python Flask</p>
+<p>下面呢，和大家讲一下后端具体的类型</p>
+<pre>
+传统后端主要的类型有：
+PHP                         Laravel, Symfony
+Python                      Flask, Django, FastAPI
+JavaScript （Node.js）       Express, NestJS, Koa
+Java                        Spring Boot, Micronaut
+Ruby                        Ruby on Rails
+Go （Golang）                Gin, Echo, Fiber
+C# (.NET Core)              ASP.NET Core
+Rust                        Actix, Rocket
+Perl / C / C++              CGI, Wt
+Kotlin                      Ktor, Spring
+Scala                       Play, Akka
+
+无服务器后端（轻量 API、表单处理、事件驱动逻辑）：
+AWS Lambda
+Azure Functions
+Google Cloud Functions
+Cloudflare Workers / Pages Functions
+Netlify Functions / Vercel Functions
+
+边缘计算后端（低延迟 API、鉴权、缓存控制）：
+Cloudflare Workers
+Vercel Edge Functions
+Fastly Compute@Edge
+
+微服务架构后端（大型平台、分布式系统）：
+Docker + Kubernetes
+Spring Cloud（Java）
+Go 微服务框架（Gin、Echo）
+
+后端即服务（移动应用、快速原型）：
+Firebase（Google）
+Supabase（开源替代）
+Parse
+Appwrite
+
+特殊类型后端：
+GraphQL 后端：用 GraphQL API 替代 REST，代表有 Apollo Server、Hasura。
+Headless CMS：内容管理后端，代表有 Strapi、Contentful。
+实时后端：专注实时通信，代表有 Socket.io、Elixir Phoenix Channels。
+</pre>
+
+<h2>4. 如何在HSHMENG的网站中挂载自己的静态页面呢</h2>
+<p>自己看：https://hshmeng.cn/hshmeng/thank/thank</p>
+<p>或者现在HSHMENG提供你将html打包发送，HSHMENG帮你部署的服务</p>
+
+<h2>5. 网址域名</h2>
+<p>众所周知，HSHMENG有过多个域名</p>
+<p>最后呢是花钱在阿里云购买的hshmeng.cn</p>
+<p>免费的二级域名有很多，但是我还是喜欢顶级域名</p>
+<p>PS：如果有需要，可以提供免费的hshmeng.cn的二级域名DNS解析（禁止img.hshmeng.cn，admin.hshmeng.cn这类二级域名）</p>
+
+<h2>6. 服务器哪里买？</h2>
+<p>首先，HSHMENG不推荐动手能力差，还有能问出“我填的鄞州银行的卡号，为什么我工商银行没有到账”“你知道我家路由器密码是多少吗”这类问题的人去购买</p>
+<p>服务器的配置还是比较繁琐的，大家如果需要，可以bilibili搜索教程，HSHMENG帮忙需要收费10R的哦</p>
+
+<p>国内的服务器厂商主要就是：阿里云，腾讯云，华为云，百度智能云等等</p>
+<p>首选阿里云</p>
+<p>大家也可以货比三家，看自己喜欢喽</p>
+
+<p>购买服务器注意事项我也说一下吧</p>
+<pre>
+1.购买服务器的额外支出
+公网带宽升级：默认带宽通常较低,也就是指访问速度，如果网站访问量大，需要额外购买更高带宽或按流量计费。（目前有两种，一种是按速度付费，一直是固定的速度，二种是按流量付费，花了多少访问的流量就给多少钱）
+弹性 IP / 独立 IP：有些厂商默认提供共享IP，如果需要独立公网IP或多个IP，需要额外付费。
+存储扩展：系统盘容量有限，网站数据多时需要购买额外数据盘或对象存储（OSS、COS）。
+操作系统授权：Linux免费，Windows Server需额外授权费用。
+！！！数据库服务：如果不自己搭建数据库，使用云数据库（RDS、MongoDB 等）需要单独付费。这是最最最重要的，很多人都忽略了数据库的费用，数据库的费用可能比服务器本身还贵，尤其是访问量大或者数据量大的时候。
+！！！安全防护：DDoS防护、WAF（Web应用防火墙）、备份与快照、备案与合规。这里最重要的就是备案的问题，国内服务器必须备案。
+！！！域名：域名注册和续费费用，通常按年计费，同时域名本身每年续费也是一笔固定支出。
+
+2.服务器的配置选择
+CPU/内存
+存储：系统盘建议 SSD，容量预留足够空间；数据盘可按需扩展。
+带宽：低带宽容易卡顿，建议至少2–5Mbps
+地域节点（香港服务器好像不用备案？）
+其它的我懒得说了，反正就是根据自己的需求和预算来选择配置
+
+3.一定不要产生违法违规内容，服务器商会监控你的服务器，如果发现违法违规内容会直接警告或者封禁服务器，严重的还可能报警处理，所以一定要注意合法合规经营
+</pre>
+</body>
+</html>

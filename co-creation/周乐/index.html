@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>土豆世界 - 探索土豆的奇妙之处</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-seedling"></i> 土豆世界</h1>
+            <p class="tagline">探索地球上最神奇的块茎植物</p>
+        </div>
+    </header><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="#facts"><i class="fas fa-lightbulb"></i> 土豆知识</a></li>
+                <li><a href="#recipes"><i class="fas fa-utensils"></i> 土豆食谱</a></li>
+                <li><a href="#gallery"><i class="fas fa-images"></i> 土豆图鉴</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> 关于我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>欢迎来到土豆世界</h2>
+                <p>土豆不仅是全球重要的粮食作物，更是烹饪中的多面手。从南美洲安第斯山脉到全球各地，土豆已经陪伴人类走过了8000多年的历史。</p>
+                <button id="fact-btn" class="btn-primary">获取随机土豆知识</button>
+                <div id="fact-display" class="fact-box">
+                    <p>点击上方按钮获取有趣的土豆知识！</p>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="potato-img"></div>
+            </div>
+        </section>
+
+        <section id="facts" class="section">
+            <h2><i class="fas fa-lightbulb"></i> 土豆知识</h2>
+            <div class="facts-grid">
+                <div class="fact-card">
+                    <div class="fact-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>起源</h3>
+                    <p>土豆原产于南美洲安第斯山脉，由印加人首先驯化种植，已有8000多年历史。</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>重要性</h3>
+                    <p>土豆是全球第四大粮食作物，仅次于玉米、小麦和水稻，养活了全球数十亿人口。</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h3>营养价值</h3>
+                    <p>土豆富含维生素C、B6、钾和膳食纤维，一个中等土豆能提供每日所需45%的维生素C。</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>多样性</h3>
+                    <p>全球有超过2000种土豆，颜色包括黄色、红色、紫色甚至黑色，形状大小各异。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recipes" class="section">
+            <h2><i class="fas fa-utensils"></i> 土豆食谱</h2>
+            <p class="section-subtitle">探索各种美味的土豆烹饪方法</p>
+            <div class="recipes-container">
+                <div class="recipe-list" id="recipe-list">
+                    <!-- 食谱将通过JavaScript动态加载 -->
+                </div>
+                <div class="recipe-detail" id="recipe-detail">
+                    <h3>选择左侧食谱查看详情</h3>
+                    <p>点击任意食谱查看烹饪时间、难度和简要说明</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 土豆营养计算器 -->
+        <section id="calculator" class="section">
+            <h2><i class="fas fa-calculator"></i> 土豆营养计算器</h2>
+            <p class="section-subtitle">计算不同烹饪方式和品种的土豆营养价值</p>
+
+            <div class="calculator-container">
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label for="potato-weight">
+                            <i class="fas fa-weight"></i> 土豆重量 (克)
+                        </label>
+                        <div class="input-with-slider">
+                            <input type="range" id="weight-slider" min="50" max="500" step="10" value="100">
+                            <input type="number" id="potato-weight" min="50" max="500" value="100">
+                            <span class="unit">克</span>
+                        </div>
+                        <div class="weight-examples">
+                            <small>参考：小土豆约50g，中等土豆约100g，大土豆约200g</small>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="cooking-method">
+                            <i class="fas fa-utensils"></i> 烹饪方式
+                        </label>
+                        <div class="method-buttons">
+                            <button class="method-btn active" data-method="baked">
+                                <i class="fas fa-fire"></i> 烤
+                            </button>
+                            <button class="method-btn" data-method="boiled">
+                                <i class="fas fa-tint"></i> 煮
+                            </button>
+                            <button class="method-btn" data-method="fried">
+                                <i class="fas fa-oil-can"></i> 炸
+                            </button>
+                            <button class="method-btn" data-method="mashed">
+                                <i class="fas fa-mortar-pestle"></i> 泥
+                            </button>
+                            <button class="method-btn" data-method="steamed">
+                                <i class="fas fa-cloud"></i> 蒸
+                            </button>
+                            <button class="method-btn" data-method="roasted">
+                                <i class="fas fa-temperature-high"></i> 煎
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="potato-variety">
+                            <i class="fas fa-seedling"></i> 土豆品种
+                        </label>
+                        <div class="variety-buttons">
+                            <button class="variety-btn active" data-variety="russet">
+                                <div class="variety-color russet"></div>
+                                <span>褐皮土豆</span>
+                            </button>
+                            <button class="variety-btn" data-variety="yukon_gold">
+                                <div class="variety-color yukon"></div>
+                                <span>黄金土豆</span>
+                            </button>
+                            <button class="variety-btn" data-variety="red_potato">
+                                <div class="variety-color red"></div>
+                                <span>红皮土豆</span>
+                            </button>
+                            <button class="variety-btn" data-variety="purple">
+                                <div class="variety-color purple"></div>
+                                <span>紫土豆</span>
+                            </button>
+                            <button class="variety-btn" data-variety="sweet">
+                                <div class="variety-color sweet"></div>
+                                <span>红薯</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="calculate-btn" class="btn-primary">
+                        <i class="fas fa-calculator"></i> 计算营养价值
+                    </button>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="results-header">
+                        <h3>营养分析结果</h3>
+                        <div class="results-summary" id="results-summary">
+                            <p>输入参数后点击计算按钮</p>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-grid" id="nutrition-grid">
+                        <!-- 营养数据将通过JavaScript动态生成 -->
+                        <div class="empty-state">
+                            <i class="fas fa-calculator fa-3x"></i>
+                            <p>等待计算...</p>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-chart-container">
+                        <canvas id="nutrition-chart"></canvas>
+                    </div>
+
+                    <div class="health-tips" id="health-tips">
+                        <h4><i class="fas fa-heart"></i> 健康建议</h4>
+                        <ul>
+                            <li>计算结果将在这里显示健康建议</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculator-info">
+                <h4><i class="fas fa-info-circle"></i> 关于营养计算</h4>
+                <p>本计算器基于USDA（美国农业部）营养数据库数据，计算结果为估算值，实际营养含量可能因具体品种、生长条件和烹饪方法而有所不同。</p>
+            </div>
+        </section>
+        <section id="gallery" class="section">
+            <h2><i class="fas fa-images"></i> 土豆图鉴</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div class="potato-type yellow"></div>
+                    <h3>黄土豆</h3>
+                    <p>肉质细腻，适合做土豆泥和烤土豆</p>
+                </div>
+                <div class="gallery-item">
+                    <div class="potato-type red"></div>
+                    <h3>红土豆</h3>
+                    <p>皮薄肉嫩，适合煮和做沙拉</p>
+                </div>
+                <div class="gallery-item">
+                    <div class="potato-type purple"></div>
+                    <h3>紫土豆</h3>
+                    <p>富含花青素，营养价值高</p>
+                </div>
+                <div class="gallery-item">
+                    <div class="potato-type sweet"></div>
+                    <h3>红薯</h3>
+                    <p>甜味浓郁，富含β-胡萝卜素</p>
+                </div>
+                <div class="gallery-item">
+                    <div class="potato-type xiao"></div>
+                    <h3>小土豆</h3>
+                    <p>又小又骚，还可口,毒性很大</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2><i class="fas fa-info-circle"></i> 关于我们</h2>
+            <div class="about-content">
+                <p>土豆世界网站致力于传播土豆相关知识，展示土豆的多样性、营养价值和烹饪方法。我们的目标是让更多人了解并喜爱这种神奇的作物。</p>
+                <p>土豆不仅是一种食物，更是人类农业文明的重要组成部分。从安第斯山脉到全球各地，土豆的故事还在继续...</p>
+                <p class="slogan">小土豆骚土豆爱土豆</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy;  土豆大狗嚼嚼嚼</p>
+            <p class="footer-slogan">小土豆骚土豆爱土豆</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>
